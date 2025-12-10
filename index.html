@@ -1,36 +1,41 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>MQTT Sender</title>
+  <title>MQTT Touch Monitor</title>
   <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
 </head>
 <body style="font-family: sans-serif;">
-
-  <h2>Kirim Data ke MQTT</h2>
+    <h2>Kirim Data ke MQTT</h2>
 
   <input id="pesan" type="text" placeholder="Tulis pesan..." style="width:200px;">
   <button id="kirim">Kirim</button>
 
   <p id="status">Status: Menghubungkan...</p>
+  <h2>Status TouchPin ESP32</h2>
+  <div id="status1">Menunggu data...</div>
 
   <script>
-    // KONEKSI MQTT WEBSOCKET
     const client = mqtt.connect("wss://broker.emqx.io:8084/mqtt");
 
     client.on("connect", () => {
+      client.subscribe("abdianjaymabar");
       document.getElementById("status").innerText = "Status: Terkoneksi ke MQTT";
       console.log("MQTT Web Connected");
     });
-
+    
     client.on("reconnect", () => {
       document.getElementById("status").innerText = "Status: Reconnecting...";
     });
-
+//pesan
+    client.on("message", (topic, message) => {
+      document.getElementById("status1").innerText =
+        "Pesan: " + message.toString();
+    });
+    //error
     client.on("error", (err) => {
       document.getElementById("status").innerText = "Error MQTT: " + err;
     });
-
-    // KIRIM PESAN
+    //kirim pesan
     document.getElementById("kirim").onclick = () => {
       const text = document.getElementById("pesan").value;
       if (!text) return alert("Isi pesan dulu!");
@@ -39,7 +44,5 @@
       console.log("Dikirim:", text);
     };
   </script>
-
 </body>
 </html>
-
