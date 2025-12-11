@@ -3,6 +3,7 @@
       const text = document.getElementById("pesan").value;
       if (!text) return alert("Isi pesan dulu!");
 
-      client.publish("abdianjaymabar", text);
+      client.publish("mymqttforproject", text);
       console.log("Dikirim:", text);
+
     };
