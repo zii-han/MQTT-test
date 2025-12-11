@@ -1,6 +1,6 @@
 const client = mqtt.connect("wss://broker.emqx.io:8084/mqtt");
     client.on("connect", () => {
-      client.subscribe("abdianjaymabar");
+      client.subscribe("mymqttforproject");
       document.getElementById("status").innerText = "Status: Terhubung ke MQTT";
       console.log("MQTT Web Connected");
     });
@@ -13,4 +13,5 @@ const client = mqtt.connect("wss://broker.emqx.io:8084/mqtt");
     //error
     client.on("error", (err) => {
       document.getElementById("status").innerText = "Error MQTT: " + err;
+
     });
