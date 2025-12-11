@@ -1,19 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tranciver</title>
-    <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
-    <script src="script/connector"></script>
-    <script src="script/publish.js"></script>
+  <title>MQTT Sender</title>
+  <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+  <script src="script/connector.js"></script>
+  <script src="script/publish.js"></script>
 </head>
-<body>
-    <h2>Pengirim</h2>
-    <input id="pesan" type="text" placeholder="Tulis pesan..." style="width:200px;">
-    <button id="kirim" onclick = "kirim()">Kirim</button>
-    <p id="status">Status: Menghubungkan...</p>
+<body style="font-family: sans-serif;">
+
+  <h2>Kirim Data ke MQTT</h2>
+
+  <input id="pesan" type="text" placeholder="Tulis pesan..." style="width:200px;">
+  <button id="kirim" onclick="kirim()">Kirim</button>
+
+  <p id="status">Status: Menghubungkan...</p>
+
+  <!-- <script>
+    // KONEKSI MQTT WEBSOCKET
+    const client = mqtt.connect("wss://broker.emqx.io:8084/mqtt");
+
+    client.on("connect", () => {
+      document.getElementById("status").innerText = "Status: Terkoneksi ke MQTT";
+      console.log("MQTT Web Connected");
+    });
+
+    client.on("reconnect", () => {
+      document.getElementById("status").innerText = "Status: Reconnecting...";
+    });
+
+    client.on("error", (err) => {
+      document.getElementById("status").innerText = "Error MQTT: " + err;
+    });
+
+    // KIRIM PESAN
+    document.getElementById("kirim").onclick = () => {
+      const text = document.getElementById("pesan").value;
+      if (!text) return alert("Isi pesan dulu!");
+
+      client.publish("mymqttforproject", text);
+      console.log("Dikirim:", text);
+    };
+  </script> -->
 </body>
-
 </html>
-
